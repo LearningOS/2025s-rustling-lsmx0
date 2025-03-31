@@ -1,12 +1,14 @@
 // enums1.rs
 //
-// No hints this time! ;)
-
-// I AM NOT DONE
+// No hints this time! Watch and learn how to track down and fix a compiler error
+// yourself. Try to solve the exercise without looking at the hints in the code.
 
 #[derive(Debug)]
 enum Message {
-    // TODO: define a few types of messages as used below
+    Quit,
+    Echo,
+    Move,
+    ChangeColor,
 }
 
 fn main() {
