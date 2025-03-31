@@ -57,6 +57,27 @@ impl Graph for UndirectedGraph {
             true
         }
     }
+    fn get_neighbors(&self, node: &str) -> Vec<(&String, i32)> {
+        self.adjacency_table
+            .get(node)
+            .map(|neighbors| neighbors.iter().map(|(n, w)| (n, *w)).collect())
+            .unwrap_or_default()
+    }
+    fn contains(&self, node: &str) -> bool {
+        self.adjacency_table.contains_key(node)
+    }
+    fn nodes(&self) -> HashSet<&String> {
+        self.adjacency_table.keys().collect()
+    }
+    fn edges(&self) -> Vec<(&String, &String, i32)> {
+        let mut edges = Vec::new();
+        for (from, neighbors) in &self.adjacency_table {
+            for (to, weight) in neighbors {
+                edges.push((from, to, *weight));
+            }
+        }
+        edges
+    }
 }
 pub trait Graph {
     fn new() -> Self;
@@ -67,6 +88,7 @@ pub trait Graph {
     fn contains(&self, node: &str) -> bool;
     fn nodes(&self) -> HashSet<&String>;
     fn edges(&self) -> Vec<(&String, &String, i32)>;
+    fn get_neighbors(&self, node: &str) -> Vec<(&String, i32)>;
 }
 #[cfg(test)]
 mod test_undirected_graph {
